@@ -29,7 +29,7 @@ if (-not $vs) {
 $toolsets = @{
     "vc14" = "14.0"
 }
-$dir = vswhere -latest -find "VC\Tools\MSVC"
+$dir = vswhere -latest -find "VC\Tools\MSVC" -products *
 foreach ($toolset in (Get-ChildItem $dir)) {
     $tsv = "$toolset".split(".")
     if ((14 -eq $tsv[0]) -and (9 -ge $tsv[1])) {
