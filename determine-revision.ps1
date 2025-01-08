@@ -17,12 +17,12 @@ $phpversion = $releases.$version
 if (-not $phpversion) {
     $baseurl = "https://downloads.php.net/~windows/releases"
     $url = "$baseurl/releases.json"
-    $releases = Invoke-WebRequest $url | ConvertFrom-Json
+    $releases = Invoke-WebRequest -Uri $url -UseBasicParsing | ConvertFrom-Json
     $phpversion = $releases.$version.version
     if (-not $phpversion) {
         $baseurl = "https://downloads.php.net/~windows/qa"
         $url = "$baseurl/releases.json"
-        $releases = Invoke-WebRequest $url | ConvertFrom-Json
+        $releases = Invoke-WebRequest -Uri $url -UseBasicParsing | ConvertFrom-Json
         $phpversion = $releases.$version.version
         if (-not $phpversion) {
             throw "unknown version"

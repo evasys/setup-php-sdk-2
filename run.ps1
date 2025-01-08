@@ -52,7 +52,7 @@ if (-not (Test-Path "php-sdk")) {
 
     $temp = New-TemporaryFile | Rename-Item -NewName {$_.Name + ".zip"} -PassThru
     $url = "https://github.com/php/php-sdk-binary-tools/releases/download/php-sdk-2.3.0/php-sdk-binary-tools-php-sdk-2.3.0.zip"
-    Invoke-WebRequest $url -OutFile $temp
+    Invoke-WebRequest -Uri $url -UseBasicParsing -OutFile $temp
     Expand-Archive $temp -DestinationPath "."
     Rename-Item "php-sdk-binary-tools-php-sdk-2.3.0" "php-sdk"
 }
@@ -66,7 +66,7 @@ if (-not (Test-path "php-bin")) {
     $fname = "php-$revision-$tspart-$vs-$arch.zip"
     $url = "$baseurl/$fname"
     Write-Output "Downloading $url ..."
-    Invoke-WebRequest $url -OutFile $temp
+    Invoke-WebRequest -Uri $url -UseBasicParsing -OutFile $temp
     Expand-Archive $temp "php-bin"
 }
 
@@ -77,7 +77,7 @@ if (-not (Test-Path "php-dev")) {
     $fname = "php-devel-pack-$revision-$tspart-$vs-$arch.zip"
     $url = "$baseurl/$fname"
     Write-Output "Downloading $url ..."
-    Invoke-WebRequest $url -OutFile $temp
+    Invoke-WebRequest -Uri $url -UseBasicParsing -OutFile $temp
     Expand-Archive $temp "."
     Rename-Item "php-$revision-devel-$vs-$arch" "php-dev"
 }
@@ -94,7 +94,7 @@ if ($deps.Count -gt 0) {
                 $temp = New-TemporaryFile | Rename-Item -NewName {$_.Name + ".zip"} -PassThru
                 $url = "$baseurl/$vs/$arch/$line"
                 Write-Output "Downloading $url ..."
-                Invoke-WebRequest $url -OutFile $temp
+                Invoke-WebRequest -Uri $url -UseBasicParsing -OutFile $temp
                 Expand-Archive $temp "../deps"
                 $installed = $true
                 break
