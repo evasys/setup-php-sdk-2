@@ -84,7 +84,7 @@ if (-not (Test-Path "php-dev")) {
 
 if ($deps.Count -gt 0) {
     $baseurl = "https://downloads.php.net/~windows/php-sdk/deps"
-    $series = Invoke-WebRequest "$baseurl/series/packages-$version-$vs-$arch-staging.txt"
+    $series = Invoke-WebRequest -Uri "$baseurl/series/packages-$version-$vs-$arch-staging.txt" -UseBasicParsing
     $remainder = @()
     $installed = $false
     foreach ($dep in $deps) {
